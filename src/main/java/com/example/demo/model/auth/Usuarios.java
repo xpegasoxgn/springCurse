@@ -39,6 +39,8 @@ public class Usuarios {
     )
     private Set<Rol>roles;
 
+    
+
     public Long getId() {
         return id;
     }
@@ -109,6 +111,14 @@ public class Usuarios {
 
     public void setFec_creacion(LocalDateTime fec_creacion) {
         this.fec_creacion = fec_creacion;
+    }
+
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
     }
 
 

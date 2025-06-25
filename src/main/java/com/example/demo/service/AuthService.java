@@ -1,5 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.dto.LoginRequest;
+import com.example.demo.dto.jwt.JwtLoginResponse;
+
 public interface  AuthService {
-    public String login(String username,String password, String ip);
+    public JwtLoginResponse login(LoginRequest request);
 }
