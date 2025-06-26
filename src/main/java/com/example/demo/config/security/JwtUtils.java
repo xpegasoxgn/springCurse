@@ -12,6 +12,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+
+// genera valida  y extrae datos del token 
 @Component
 public class JwtUtils {
 

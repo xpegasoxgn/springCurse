@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.controller.dto.LoginRequest;
+import com.example.demo.controller.dto.RegisterRequest;
 import com.example.demo.dto.jwt.JwtLoginResponse;
 import com.example.demo.service.AuthService;
 
@@ -36,5 +37,20 @@ public class AuthController {
         return "hola funciona el jwt";
     }
     
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        //TODO: process POST request
+            
+        try {
+            authService.register(request);
+            return  ResponseEntity.ok("Usuario registreado");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("ERROR: "+ e.getMessage());
+
+        }
+    }
+
     
 }
