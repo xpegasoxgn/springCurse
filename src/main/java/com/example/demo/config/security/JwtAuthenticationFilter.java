@@ -15,6 +15,10 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 
+//intercetar cada request
+// leer el token del header
+// lo valida usando JwtUtils
+// customUserDetailsService
 @Component
 public class JwtAuthenticationFilter extends GenericFilter {
 
@@ -38,7 +42,7 @@ public class JwtAuthenticationFilter extends GenericFilter {
             String username = jwtUtils.obtenerUsernameDelToken(token);
 
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) { // token tengo usuario y que no este expirado
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 if (jwtUtils.validarToken(token, userDetails)) {
