@@ -28,7 +28,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             user.getUsername(),
             user.getPassword(),
             user.getRoles().stream()
-                .map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
+                // Agregamos el prefijo "ROLE_" como exige Spring Security para @PreAuthorize("hasRole('ADMIN')")
+                .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getNombre()))
                 .collect(Collectors.toList())
         );
     }

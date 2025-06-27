@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.config.security.JwtUtils;
+import com.example.demo.controller.dto.ChangePasswordRequest;
 import com.example.demo.controller.dto.LoginRequest;
 import com.example.demo.controller.dto.RegisterRequest;
 import com.example.demo.dto.jwt.JwtLoginResponse;
@@ -100,8 +101,5 @@ public class AuthServiceImpl implements AuthService{
         usuarioRepository.save(newUser);
 
     }
+
 }
-
-
-
-
