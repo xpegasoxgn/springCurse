@@ -33,7 +33,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN','USER')")
     @GetMapping("/hello")
     public String getMethodName() {
         return "hola funciona el jwt";

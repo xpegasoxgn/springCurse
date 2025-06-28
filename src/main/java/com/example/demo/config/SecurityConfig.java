@@ -30,7 +30,7 @@ public class SecurityConfig {
                 })
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/login").permitAll()
+                .requestMatchers("/auth/login", "/swagger-ui.html", "/v3/api-docs/**","/swagger-ui/**").permitAll()
                 //.requestMatchers("/auth/hello").permitAll()
                 .anyRequest().authenticated()
             )
@@ -43,4 +43,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    
 }
