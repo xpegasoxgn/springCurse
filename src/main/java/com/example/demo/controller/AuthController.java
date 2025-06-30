@@ -13,6 +13,7 @@ import com.example.demo.controller.dto.LoginRequest;
 import com.example.demo.controller.dto.RegisterRequest;
 import com.example.demo.dto.jwt.JwtLoginResponse;
 import com.example.demo.service.AuthService;
+import com.example.demo.service.EmailService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -24,6 +25,9 @@ public class AuthController {
     
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req,HttpServletRequest request) {
@@ -39,6 +43,13 @@ public class AuthController {
     public String getMethodName() {
         return "hola funciona el jwt";
     }
+    @GetMapping("/mail")
+    public String enviarcorreo() {
+
+        emailService.enviarCorreo("ginavia12@gmail.com", "prueba","hola gary");
+        return "hola funciona el jwt";
+    }
+
     
 
     @PostMapping("/register")
