@@ -1,9 +1,13 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.model.medico.Medico;
 import com.example.demo.service.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
@@ -11,27 +15,27 @@ public class MedicoController {
     @Autowired
     private MedicoService medicoService;
 
-    @GetMapping
-    public String getMedicos() {
+    @GetMapping("/listar")
+    public List<Medico> getAllMedicos() {
         return medicoService.getAllMedicos();
     }
 
     @GetMapping("/{id}")
-    public String getMedicoById(Long id) {
+    public Medico getMedicoById(Long id) {
         return medicoService.getMedicoById(id);
     }
 
-    @PostMapping
-    public String createMedico(String nombre, String especialidad) {
-        return medicoService.createMedico(nombre, especialidad);
+    @PostMapping("crear")
+    public Medico createMedico(@RequestBody Medico medico) {
+        return medicoService.createMedico(medico);
     }
-    @PutMapping("/{id}")
-    public String updateMedico(@PathVariable Long id, @RequestBody String nombre, @RequestBody String especialidad) {
-        return medicoService.updateMedico(id, nombre, especialidad);
+    @PutMapping("editar/{id}")
+    public Medico updateMedico(@PathVariable Long id, @RequestBody Medico medico) {
+        return medicoService.updateMedico(id, medico);
     }
-    @DeleteMapping("/{id}")
-    public String deleteMedico(@PathVariable Long id) {
-        return medicoService.deleteMedico(id);
+    @DeleteMapping("eliminar/{id}")
+    public ResponseEntity<Void> deleteMedico(@PathVariable Long id) {
+        medicoService.deleteMedico(id);
+        return ResponseEntity.noContent().build();
     }
-
 }
