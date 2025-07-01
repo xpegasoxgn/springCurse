@@ -1,17 +1,24 @@
 package com.example.demo.model.medico;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
+@Table (name = "especialidades", schema = "medico")
 public class Especialidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-
+    @OneToMany(mappedBy = "especialidad")
+    private List<Medico> medicos;
+    public List<Medico> getMedicos() {
+        return medicos;
+    }
+    public void setMedicos(List<Medico> medicos) {
+        this.medicos = medicos;
+    }
     public Long getId() {
         return id;
     }

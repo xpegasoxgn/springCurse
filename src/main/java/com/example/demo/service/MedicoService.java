@@ -8,5 +8,5 @@ public interface MedicoService {
      Medico getMedicoById(Long id) ;
      Medico createMedico(Medico medico) ;
      Medico updateMedico(Long id, Medico medico) ;
-     void deleteMadminaedico(Long id) ;
+     void deleteMedico(Long id) ;
 }

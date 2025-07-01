@@ -17,7 +17,7 @@ public class MedicoController {
 
     @GetMapping("/listar")
     public List<Medico> getAllMedicos() {
-        return medicoService.getAllMedicos();
+        return medicoService.listaMedicos();
     }
 
     @GetMapping("/{id}")
@@ -29,10 +29,12 @@ public class MedicoController {
     public Medico createMedico(@RequestBody Medico medico) {
         return medicoService.createMedico(medico);
     }
+
     @PutMapping("editar/{id}")
     public Medico updateMedico(@PathVariable Long id, @RequestBody Medico medico) {
         return medicoService.updateMedico(id, medico);
     }
+
     @DeleteMapping("eliminar/{id}")
     public ResponseEntity<Void> deleteMedico(@PathVariable Long id) {
         medicoService.deleteMedico(id);
