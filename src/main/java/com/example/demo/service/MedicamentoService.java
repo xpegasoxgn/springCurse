@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.controller.dto.MedicamentoDTO;
 import com.example.demo.controller.dto.MedicamentoResponseDTO;
-import com.example.demo.model.Medicamento;
 
 import java.util.List;
 
