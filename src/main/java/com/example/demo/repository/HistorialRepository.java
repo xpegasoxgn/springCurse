@@ -9,6 +9,6 @@ import com.example.demo.model.Historial;
 
 @Repository
 public interface HistorialRepository extends JpaRepository<Historial, Long>{
-    Optional <Historial> findByUsername(String Username);
+    Optional <Historial> findById(Long id);
     
 }

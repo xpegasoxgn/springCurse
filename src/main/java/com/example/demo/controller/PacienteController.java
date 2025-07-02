@@ -1,63 +1,64 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.controller.dto.LoginRequest;
-import com.example.demo.controller.dto.RegisterRequest;
-import com.example.demo.dto.jwt.JwtLoginResponse;
-import com.example.demo.service.AuthService;
-
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.demo.model.Paciente;
+import com.example.demo.service.PacienteService;
 
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping("/api_paciente")
 public class PacienteController {
-    
+
     @Autowired
-    private AuthService authService;
+    private PacienteService pacienteService;
 
-    @GetMapping("/listar")
-    public String getPacientes() {
-        return "hola funciona el jwt";
-    }
-
-    @PostMapping("/crear")
-    public ResponseEntity<?> addPaciente(@RequestBody LoginRequest req,HttpServletRequest request) {
-        String ip= request.getRemoteAddr();
-        JwtLoginResponse response=authService.login(req);
-        return ResponseEntity.ok(response);
-    }
-
-    @PutMapping("/register")
-    public ResponseEntity<?> editPaciente(@RequestBody RegisterRequest request) {
+    @GetMapping("/paciente")
+    public ResponseEntity<List<Paciente>> getPacientes() {
         try {
-            authService.register(request);
-            return  ResponseEntity.ok("Usuario registreado");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("ERROR: "+ e.getMessage());
-
+            return ResponseEntity.ok(pacienteService.getPacientes());
+        } 
+        catch (Exception e) {
+            return null;
         }
     }
 
-    @DeleteMapping("/register")
-    public ResponseEntity<?> deletePaciente(@RequestBody RegisterRequest request) {
+    @PostMapping("/paciente")
+    public ResponseEntity<Paciente> addPaciente(@RequestBody Paciente paciente) {
         try {
-            authService.register(request);
-            return  ResponseEntity.ok("Usuario registreado");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("ERROR: "+ e.getMessage());
+            return ResponseEntity.ok(pacienteService.addPaciente(paciente));
+        } 
+        catch (Exception e) {
+            return null;
+        }
+    }
 
+    @PutMapping("/paciente/{id}")
+    public ResponseEntity<String> editPaciente(@PathVariable Long id, @RequestBody Paciente paciente) {
+        try {
+            return ResponseEntity.ok(pacienteService.editPaciente( id, paciente));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/paciente/{id}")
+    public ResponseEntity<String> deletePaciente(@PathVariable Long id) {
+        try {
+            pacienteService.deletePaciente(id);
+            return ResponseEntity.ok("Paciente eliminado");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
     

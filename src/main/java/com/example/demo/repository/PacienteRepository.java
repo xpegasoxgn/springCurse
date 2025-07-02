@@ -9,5 +9,5 @@ import com.example.demo.model.Paciente;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente, Long>{
-    Optional <Paciente> findByUsername(String Username);
+    Optional <Paciente> findById(Long id);
 } 
