@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/medicamento")
+@RequestMapping("/receta")
 public class RecetaController {
     @Autowired
     private RecetaService recetaService;
@@ -39,8 +39,8 @@ public class RecetaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    public ResponseEntity<String> eliminar(@PathVariable Long id) {
         recetaService.eliminar(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Receta con ID " + id + " eliminada correctamente");
     }
 }

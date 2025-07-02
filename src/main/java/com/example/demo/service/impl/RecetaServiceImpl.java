@@ -5,13 +5,14 @@ import com.example.demo.controller.dto.RecetaResponseDTO;
 import com.example.demo.model.Medicamento;
 import com.example.demo.model.Receta;
 import com.example.demo.repository.medic.RecetaRepository;
+import com.example.demo.service.RecetaService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class RecetaServiceImpl {
+public class RecetaServiceImpl implements RecetaService {
     @Autowired
     private RecetaRepository recetaRepository;
 
@@ -58,7 +59,9 @@ public class RecetaServiceImpl {
 
         // Actualizar campos básicos
         recetaExistente.setNombrePaciente(recetaDTO.getNombrePaciente());
-        // ... (otros campos)
+        recetaExistente.setCi(recetaDTO.getCi());
+        recetaExistente.setDiagnostico(recetaDTO.getDiagnostico());
+        recetaExistente.setFechaNacimiento(recetaDTO.getFechaNacimiento());
 
         // Actualizar medicamentos (elimina los antiguos y crea nuevos)
         recetaExistente.getMedicamentos().clear();
@@ -66,7 +69,9 @@ public class RecetaServiceImpl {
                 .map(medDto -> {
                     Medicamento med = new Medicamento();
                     med.setNombre(medDto.getNombre());
-                    // ... (otros campos)
+                    med.setDosis(medDto.getDosis());
+                    med.setFechaVencimiento(medDto.getFechaVencimiento());
+                    med.setPrecio(medDto.getPrecio());
                     return med;
                 }).toList();
 
@@ -87,8 +92,8 @@ public class RecetaServiceImpl {
         // Mapear campos básicos
         dto.setId(receta.getId());
         dto.setNombrePaciente(receta.getNombrePaciente());
-        // ... (otros campos)
-
+        dto.setCi(receta.getCi());
+        dto.setFechaNacimiento(receta.getFechaNacimiento());
         // Mapear medicamentos
         List<RecetaResponseDTO.MedicamentoMinimoDTO> medicamentosDTO = receta.getMedicamentos().stream()
                 .map(med -> {

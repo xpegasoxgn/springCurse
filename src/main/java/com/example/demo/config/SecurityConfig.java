@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/medicamento/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/receta/**").hasAuthority("ROLE_ADMIN")
 
                         // Para endpoints protegidos usa hasAuthority con ROLE_
                         //.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
