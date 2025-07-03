@@ -1,9 +1,17 @@
 package com.example.demo.model.medico;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import com.example.demo.model.Paciente;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 
 @Entity
@@ -13,6 +21,7 @@ public class Consultas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     //paciente_id, medico_id, fecha, hora, motivo
+
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
