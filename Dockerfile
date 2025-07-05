@@ -1,14 +1,13 @@
-# Usa una imagen base de Java
-FROM eclipse-temurin:21-jdk
-
-# Directorio de trabajo dentro del contenedor
+# Etapa 1: build del JAR
+FROM maven:3.9.6-eclipse-temurin-21 as build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copia el JAR compilado al contenedor
-COPY target/proyecto-0.0.1-SNAPSHOT.jar app.jar
+# Etapa 2: imagen final
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-# Expone el puerto que usará Render
 EXPOSE 8080
-
-# Comando para ejecutar tu app
 ENTRYPOINT ["java", "-jar", "app.jar"]
