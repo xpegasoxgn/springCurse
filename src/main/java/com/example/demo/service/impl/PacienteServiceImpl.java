@@ -5,9 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Paciente;
 import com.example.demo.repository.PacienteRepository;
+import com.example.demo.service.CloudinaryService;
 import com.example.demo.service.PacienteService;
 
 @Service
@@ -20,7 +22,8 @@ public class PacienteServiceImpl implements PacienteService{
     public List<Paciente> getPacientes() throws Exception{
         return pacienteRepository.findAll();
     }
-
+@Autowired
+private CloudinaryService cloudinaryService;
     @Override
     public Paciente addPaciente(Paciente paciente) throws Exception{
         return pacienteRepository.save(paciente);
@@ -56,4 +59,22 @@ public class PacienteServiceImpl implements PacienteService{
         return "Paciente eliminado correctamente";
     }
     
+        
+    @Override
+    public String subirFotoPaciente(Long pacienteId, MultipartFile file) throws Exception {
+        Optional<Paciente> pacienteExistente = pacienteRepository.findById(pacienteId);
+        if (pacienteExistente.isEmpty()) {
+            throw new Exception("Paciente no encontrado con id: " + pacienteId);
+        }
+        Paciente paciente = pacienteExistente.get();
+
+        // Subir archivo a Cloudinary
+        String url = cloudinaryService.uploadFile(file);
+
+        // Guardar URL de la foto en el paciente
+        paciente.setFotoUrl(url);
+        pacienteRepository.save(paciente);
+
+        return url;
+    }
 }

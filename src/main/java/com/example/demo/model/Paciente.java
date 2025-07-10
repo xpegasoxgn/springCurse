@@ -21,6 +21,14 @@ public class Paciente {
     private String sexo;
     private String direccion;
     private String telefono;
+private String fotoUrl;
+
+public String getFotoUrl() {
+    return fotoUrl;
+}
+public void setFotoUrl(String fotoUrl) {
+    this.fotoUrl = fotoUrl;
+}
 
     public Long getId() {
         return id;

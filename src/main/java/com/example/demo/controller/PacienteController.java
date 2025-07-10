@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Paciente;
+import com.example.demo.service.CloudinaryService;
 import com.example.demo.service.PacienteService;
 
 @RestController
@@ -22,6 +26,9 @@ public class PacienteController {
 
     @Autowired
     private PacienteService pacienteService;
+
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @GetMapping("/paciente")
     public ResponseEntity<List<Paciente>> getPacientes() {
@@ -61,5 +68,19 @@ public class PacienteController {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
-    
+    @PostMapping("/{id}/foto")
+    public ResponseEntity<?> uploadFoto(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) {
+        try {
+            String url = pacienteService.subirFotoPaciente(id, file);
+            return ResponseEntity.ok(Map.of(
+                "message", "Foto subida correctamente",
+                "url", url
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
 }
