@@ -55,7 +55,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration corsConfig = new CorsConfiguration();
-    corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:4300"));
+    corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:4300", "http://localhost:5173" ));
     corsConfig.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
     corsConfig.setAllowedHeaders(Arrays.asList("Authorization","Content-Type"));
     corsConfig.setExposedHeaders(Arrays.asList("Authorization"));
