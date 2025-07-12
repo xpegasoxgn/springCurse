@@ -14,6 +14,7 @@ public class CloudinaryConfig {
             "cloud_name", "dlz01zss5",
             "api_key", "147269221379532",
             "api_secret", "ycQkfVZkPRgbtAFGUHYzaO9lY64",
+            
             "secure", true
         ));
     }

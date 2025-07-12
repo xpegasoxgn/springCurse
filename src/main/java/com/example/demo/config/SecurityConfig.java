@@ -50,8 +50,8 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//prueba/
-
+//
+ 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration corsConfig = new CorsConfiguration();
